@@ -7,6 +7,8 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+*.csv
+venv/
 .Python
 build/
 develop-eggs/
