@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Heart Attack Prediction</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Heart Attack Prediction</h1>
+
+        <form action="{{ url_for('predict_datapoint') }}" method="post">
+            <fieldset>
+                <legend>Provide below Information...</legend>
+
+                <!-- Physical Health Days -->
+                <div class="mb-3">
+                    <label class="form-label">Physical Health Days</label>
+                    <input class="form-control" type="number" name="PhysicalHealthDays"
+                        placeholder="Enter Physical Health Days" min="0" max="30" step="0.01" required>
+                </div>
+
+                <!-- Mental Health Days -->
+                <div class="mb-3">
+                    <label class="form-label">Mental Health Days</label>
+                    <input class="form-control" type="number" name="MentalHealthDays"
+                        placeholder="Enter Mental Health Days" min="0" max="30" step="0.01" required>
+                </div>
+
+                <!-- Sleep Hours -->
+                <div class="mb-3">
+                    <label class="form-label">Sleep Hours</label>
+                    <input class="form-control" type="number" name="SleepHours"
+                        placeholder="Enter Sleep Hours" min="1" max="24" step="0.01" required>
+                </div>
+
+                <!-- Height in Meters -->
+                <div class="mb-3">
+                    <label class="form-label">Height in Meters</label>
+                    <input class="form-control" type="number" name="HeightInMeters"
+                        placeholder="Enter Height in Meters" min="0.91" max="2.41" step="0.01" required>
+                </div>
+
+                <!-- Weight in Kilograms -->
+                <div class="mb-3">
+                    <label class="form-label">Weight in Kilograms</label>
+                    <input class="form-control" type="number" name="WeightInKilograms"
+                        placeholder="Enter Weight in Kilograms" min="22.68" max="280.32" step="0.01" required>
+                </div>
+
+                <!-- BMI -->
+                <div class="mb-3">
+                    <label class="form-label">BMI</label>
+                    <input class="form-control" type="number" name="BMI"
+                        placeholder="Enter your BMI" min="12.11" max="95.66" step="0.01" required>
+                </div>
+
+                <!-- E-Cigarette Usage -->
+                <div class="mb-3">
+                    <label class="form-label">E-Cigarette Usage</label>
+                    <select class="form-control" name="ECigaretteUsage" required>
+                        <option class="placeholder" selected disabled value="">Select E-Cigarette Usage</option>
+                        <option value="Never used e-cigarettes in my entire life">Never used e-cigarettes in my entire life</option>
+                        <option value="Not at all (right now)">Not at all (right now)</option>
+                        <option value="Use them some days">Use them some days</option>
+                        <option value="Use them every day">Use them every day</option>
+                    </select>
+                </div>
+
+                <!-- Race/Ethnicity Category -->
+                <div class="mb-3">
+                    <label class="form-label">Race/Ethnicity Category</label>
+                    <select class="form-control" name="RaceEthnicityCategory" required>
+                        <option class="placeholder" selected disabled value="">Select Race/Ethnicity Category</option>
+                        <option value="White only, Non-Hispanic">White only, Non-Hispanic</option>
+                        <option value="Other race only, Non-Hispanic">Other race only, Non-Hispanic</option>
+                        <option value="Hispanic">Hispanic</option>
+                        <option value="Black only, Non-Hispanic">Black only, Non-Hispanic</option>
+                        <option value="Multiracial, Non-Hispanic">Multiracial, Non-Hispanic</option>
+                    </select>
+                </div>
+
+                <!-- Age Category -->
+                <div class="mb-3">
+                    <label class="form-label">Age Category</label>
+                    <select class="form-control" name="AgeCategory" required>
+                        <option class="placeholder" selected disabled value="">Select Age Category</option>
+                        <option value="Age 18 to 24">Age 18 to 24</option>
+                        <option value="Age 25 to 29">Age 25 to 29</option>
+                        <option value="Age 30 to 34">Age 30 to 34</option>
+                        <option value="Age 35 to 39">Age 35 to 39</option>
+                        <option value="Age 40 to 44">Age 40 to 44</option>
+                        <option value="Age 45 to 49">Age 45 to 49</option>
+                        <option value="Age 50 to 54">Age 50 to 54</option>
+                        <option value="Age 55 to 59">Age 55 to 59</option>
+                        <option value="Age 60 to 64">Age 60 to 64</option>
+                        <option value="Age 65 to 69">Age 65 to 69</option>
+                        <option value="Age 70 to 74">Age 70 to 74</option>
+                        <option value="Age 75 to 79">Age 75 to 79</option>
+                        <option value="Age 80 or older">Age 80 or older</option>
+                    </select>
+                </div>
+
+                <!-- Alcohol Drinkers -->
+                <div class="mb-3">
+                    <label class="form-label">Alcohol Drinkers</label>
+                    <select class="form-control" name="AlcoholDrinkers" required>
+                        <option class="placeholder" selected disabled value="">Select Alcohol Drinkers status</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <!-- Covid Positive -->
+                <div class="mb-3">
+                    <label class="form-label">Covid Positive</label>
+                    <select class="form-control" name="CovidPos" required>
+                        <option class="placeholder" selected disabled value="">Select Covid Positive status</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                        <option value="Tested positive using home test without a health professional">Tested positive using home test without a health professional</option>
+                    </select>
+                </div>
+
+                <!-- Had Angina -->
+                <div class="mb-3">
+                    <label class="form-label">Had Angina</label>
+                    <select class="form-control" name="HadAngina" required>
+                        <option class="placeholder" selected disabled value="">Select Had Angina status</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <!-- Had Stroke -->
+                <div class="mb-3">
+                    <label class="form-label">Had Stroke</label>
+                    <select class="form-control" name="HadStroke" required>
+                        <option class="placeholder" selected disabled value="">Select Had Stroke status</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <!-- Had Asthma -->
+                <div class="mb-3">
+                    <label class="form-label">Had Asthma</label>
+                    <select class="form-control" name="HadAsthma" required>
+                        <option class="placeholder" selected disabled value="">Select Had Asthma status</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <!-- Had Skin Cancer -->
+                <div class="mb-3">
+                    <label class="form-label">Had Skin Cancer</label>
+                    <select class="form-control" name="HadSkinCancer" required>
+                        <option class="placeholder" selected disabled value="">Select Had Skin Cancer status</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <!-- Had COPD -->
+                <div class="mb-3">
+                    <label class="form-label">Had COPD</label>
+                    <select class="form-control" name="HadCOPD" required>
+                        <option class="placeholder" selected disabled value="">Select Had COPD status</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <!-- Had Depressive Disorder -->
+                <div class="mb-3">
+                    <label class="form-label">Had Depressive Disorder</label>
+                    <select class="form-control" name="HadDepressiveDisorder" required>
+                        <option class="placeholder" selected disabled value="">Select Had Depressive Disorder status</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <!-- Had Kidney Disease -->
+                <div class="mb-3">
+                    <label class="form-label">Had Kidney Disease</label>
+                    <select class="form-control" name="HadKidneyDisease" required>
+                        <option class="placeholder" selected disabled value="">Select Had Kidney Disease status</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <!-- Had Arthritis -->
+                <div class="mb-3">
+                    <label class="form-label">Had Arthritis</label>
+                    <select class="form-control" name="HadArthritis" required>
+                        <option class="placeholder" selected disabled value="">Select Had Arthritis status</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <!-- Had Diabetes -->
+                <div class="mb-3">
+                    <label class="form-label">Had Diabetes</label>
+                    <select class="form-control" name="HadDiabetes" required>
+                        <option class="placeholder" selected disabled value="">Select Had Diabetes status</option>
+                        <option value="No">No</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No, pre-diabetes or borderline diabetes">No, pre-diabetes or borderline diabetes</option>
+                        <option value="Yes, but only during pregnancy (female)">Yes, but only during pregnancy (female)</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <input class="btn btn-primary" type="submit" value="Predict Heart Attack" required />
+                </div>
+            </fieldset>
+        </form>
+
+        <h2>
+            THE prediction is {{ results }}
+        </h2>
+    </div>
+</body>
+</html>
