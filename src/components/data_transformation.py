@@ -7,7 +7,7 @@ import pandas as pd
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OrdinalEncoder,StandardScaler,FunctionTransformer
+from sklearn.preprocessing import OrdinalEncoder,StandardScaler,FunctionTransformer,LabelEncoder
 
 from src.exception import CustomException
 from src.logger import logging
@@ -78,8 +78,6 @@ class DataTransformation:
                     ("cat_pipeline",cat_pipeline,categorical_columns)
                 ]
             )
-            
-            pass
             return preprocesor
         except Exception as e:
             raise CustomException(e,sys)
@@ -112,15 +110,12 @@ class DataTransformation:
             X_test = test_df.drop(columns=[target_column_name],axis=1)
             y_test = test_df[target_column_name]
 
-            input_feature_train_arr = preprocessing_obj.fit_transform(X_train)
-            input_feature_test_arr = preprocessing_obj.transform(X_test)
+            X_train = preprocessing_obj.fit_transform(X_train)
+            X_test = preprocessing_obj.transform(X_test)
 
-            train_arr = np.c_[
-                input_feature_train_arr, np.array(X_train)
-            ]
-            test_arr = np.c_[
-                input_feature_test_arr, np.array(X_test)
-            ]
+            le = LabelEncoder()
+            y_train = le.fit_transform(y_train)
+            y_test = le.transform(y_test)
 
             logging.info("Saved preprocessing object.")
 
@@ -128,10 +123,11 @@ class DataTransformation:
                 file_path = self.data_transformation_config.preprocessor_obj_file_path,
                 obj = preprocessing_obj
             )
-
             return (
-                train_arr,
-                test_arr,
+                X_train,
+                X_test,
+                y_train,
+                y_test,
                 self.data_transformation_config.preprocessor_obj_file_path,
             )
         except Exception as e:
